@@ -2,7 +2,7 @@
 
 /*
 * Class Book
-*Représentation d'un livre dans l'app Artemis
+*Représentation d'un auteur dans l'app Artemis
 */
 
 namespace Artemis;

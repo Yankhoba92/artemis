@@ -2,7 +2,7 @@
 
 /*
 * Class Book
-*Représentation d'un livre dans l'app Artemis
+*Représentation d'un emprunt dans l'app Artemis
 */
 
 namespace Artemis;
@@ -13,18 +13,18 @@ class Loan
     public string $name;
     public int $client_id;
     public int $book_id;
-    public date $start_date;
-    public  date $end_date;
-    public boolean $returned;
+    public DateTime $start_date;
+    public  DateTime $end_date;
+    public bool $returned;
 
     public function __construct(    
         int $id,
         string $name,
         int $client_id,
         int $book_id,
-        date $start_date,
-        date $end_date,
-        boolean $returned,
+        DateTime $start_date,
+        DateTime $end_date,
+        bool $returned,
         ) {
         $this->id = $id;
         $this->name = $name;
@@ -73,12 +73,10 @@ class Loan
         return $this;
     }
 
-
     public function getBook_id()
     {
         return $this->book_id;
     }
-
 
     public function setBook_id($book_id)
     {

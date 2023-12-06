@@ -2,7 +2,7 @@
 
 /*
 * Class Book
-*Représentation d'un livre dans l'app Artemis
+*Représentation d'un Publisher dans l'app Artemis
 */
 
 namespace Artemis;
@@ -19,8 +19,6 @@ class Publisher
         $this->id = $id;
         $this->name = $name;
     }
-
-
 
     public function getId()
     {
