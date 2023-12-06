@@ -1,38 +1,39 @@
 <?php
 
-/*
-* Class Book
-*Représentation d'un livre dans l'app Artemis
-*/
+/**
+ * Class Publisher
+ * Représentation d'un éditeur dans l'app Artemis
+ */
 
 namespace Artemis;
+
 class Client
 {
-    // Proporiétés
+    // Properties
     public int $id;
     public string $name;
     public string $email;
-    public int $deposit;
+    public string $deposit;
 
-    public function __construct(    
-        int $id,
+    // Constructor
+    public function __construct(
+        int $id, 
         string $name,
         string $email,
-        string $deposit,
-        ) {
+        string $deposit
+        )
+    {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
         $this->deposit = $deposit;
     }
 
-
-
+    // Getters & Setters 
     public function getId()
     {
         return $this->id;
     }
-
     public function setId($id)
     {
         $this->id = $id;
@@ -52,7 +53,6 @@ class Client
         return $this;
     }
 
-
     public function getEmail()
     {
         return $this->email;
@@ -65,17 +65,37 @@ class Client
         return $this;
     }
 
-
     public function getDeposit()
     {
         return $this->deposit;
     }
-
-
     public function setDeposit($deposit)
     {
         $this->deposit = $deposit;
 
         return $this;
     }
+
+    // Methods
+    public function getAllClients()
+    {
+        // Code pour récupérer tous les livres
+    }
+    public function getOneClient()
+    {
+        // Code pour récupérer tous les livres
+    }
+    public function addClient()
+    {
+        // Code pour récupérer tous les livres
+    }
+    public function editClient()
+    {
+        // Code pour récupérer tous les livres
+    }
+    public function deleteClient()
+    {
+        // Code pour récupérer tous les livres
+    }
 }
+//Pas de code ici

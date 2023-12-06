@@ -1,36 +1,36 @@
 <?php
 
-/*
-* Class Book
-*Représentation d'un auteur dans l'app Artemis
-*/
+/**
+ * Class Author
+ * Représentation d'un auteur dans l'app Artemis
+ */
 
 namespace Artemis;
+
 class Author
 {
-    // Proporiétés
+    // Properties
     public int $id;
     public string $name;
     public string $bio;
 
-    public function __construct(    
-        int $id,
+    // Constructor
+    public function __construct(
+        int $id, 
         string $name,
-        string $bio,
-
-        ) {
+        string $bio
+        )
+    {
         $this->id = $id;
         $this->name = $name;
-        $this->name = $bio;
+        $this->bio = $bio;
     }
 
-
-
+    // Getters & Setters 
     public function getId()
     {
         return $this->id;
     }
-
     public function setId($id)
     {
         $this->id = $id;
@@ -42,7 +42,6 @@ class Author
     {
         return $this->name;
     }
-
     public function setName($name)
     {
         $this->name = $name;
@@ -59,5 +58,27 @@ class Author
         $this->bio = $bio;
 
         return $this;
+    }
+
+    // Methods
+    public function getAllAuthors() // Read
+    {
+        // Code pour récupérer tous les livres
+    }
+    public function getOneAuthor() // Read
+    {
+        // Code pour récupérer tous les livres
+    }
+    public function addAuthor() // Create
+    {
+        // Code pour récupérer tous les livres
+    }
+    public function editAuthor() // Update
+    {
+        // Code pour récupérer tous les livres
+    }
+    public function deleteAuthor() // Delete
+    {
+        // Code pour récupérer tous les livres
     }
 }

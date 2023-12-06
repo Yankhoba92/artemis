@@ -1,51 +1,39 @@
 <?php
 
-/*
-* Class Book
-*Représentation d'un livre dans l'app Artemis
-*/
+/**
+ * Class Book
+ * Représentation d'un livre dans l'app Artemis
+ */
 
 namespace Artemis;
+
 class Book
 {
-    // Proporiétés
+    // Properties
     public int $id;
     public string $title;
     public string $description;
     public string $ISBN;
     public int $author_id;
     public int $publisher_id;
-    
-    // Constructor
 
-   public function __construct(
-    int $id,
-    string $title,
-    string $description,
-    string $ISBN,
-    int $author_id,
-    int $publisher_id
-   ) 
-   {
-       $this ->id = $id;
-       $this ->title = $title; 
-       $this ->description = $description; 
-       $this ->ISBN = $ISBN; 
-       $this ->author_id = $author_id; 
-       $this ->publisher_id = $publisher_id; 
-        
+    // Constructor
+    public function __construct(int $id, string $title, string $description, string $ISBN, int $author_id, int $publisher_id
+        )
+    {
+        $this->id = $id;
+        $this->title = $title;
+        $this->description = $description;
+        $this->ISBN = $ISBN;
+        $this->author_id = $author_id;
+        $this->publisher_id = $publisher_id;
     }
 
-
-
-    // Getter & Setter
-
+    // Getters & Setters
     public function getId()
     {
         return $this->id;
     }
-
-    
     public function setId($id)
     {
         $this->id = $id;
@@ -57,45 +45,39 @@ class Book
     {
         return $this->title;
     }
-
-    
     public function setTitle($title)
     {
         $this->title = $title;
 
         return $this;
-    }
+    } 
 
-  
     public function getDescription()
     {
         return $this->description;
     }
-
     public function setDescription($description)
     {
         $this->description = $description;
 
         return $this;
-    }
+    } 
 
     public function getISBN()
     {
         return $this->ISBN;
     }
-
     public function setISBN($ISBN)
     {
         $this->ISBN = $ISBN;
 
         return $this;
-    }
+    } 
 
     public function getAuthor_id()
     {
         return $this->author_id;
     }
-
     public function setAuthor_id($author_id)
     {
         $this->author_id = $author_id;
@@ -107,12 +89,38 @@ class Book
     {
         return $this->publisher_id;
     }
-
     public function setPublisher_id($publisher_id)
     {
         $this->publisher_id = $publisher_id;
 
         return $this;
     }
+
+    // Methods
+    public function getAllBooks()
+    {
+        // Code pour récupérer tous les livres
+    }
+    public function getOneBook()
+    {
+        // Code pour récupérer tous les livres
+    }
+    public function addBook()
+    {
+        // Code pour récupérer tous les livres
+    }
+    public function editBook()
+    {
+        // Code pour récupérer tous les livres
+    }
+    public function deleteBook()
+    {
+        // Code pour récupérer tous les livres
+    }
+
+
+
+
+
+
 }
-// Code interdit aprés l'accolade

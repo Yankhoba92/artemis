@@ -1,47 +1,47 @@
 <?php
 
-/*
-* Class Book
-*Représentation d'un emprunt dans l'app Artemis
-*/
+/**
+ * Class Publisher
+ * Représentation d'un éditeur dans l'app Artemis
+ */
 
 namespace Artemis;
+
+use DateTime;
+
 class Loan
 {
-    // Proporiétés
+    // Properties
     public int $id;
-    public string $name;
     public int $client_id;
-    public int $book_id;
+    public int $Loan_id;
     public DateTime $start_date;
-    public  DateTime $end_date;
+    public DateTime $end_date;
     public bool $returned;
 
-    public function __construct(    
+    // Constructor
+    public function __construct(
         int $id,
-        string $name,
         int $client_id,
-        int $book_id,
+        int $Loan_id,
         DateTime $start_date,
         DateTime $end_date,
-        bool $returned,
-        ) {
+        bool $returned
+        )
+    {
         $this->id = $id;
-        $this->name = $name;
         $this->client_id = $client_id;
-        $this->book_id = $book_id;
+        $this->Loan_id = $Loan_id;
         $this->start_date = $start_date;
         $this->end_date = $end_date;
         $this->returned = $returned;
     }
 
-
-
+    // Getters & Setters 
     public function getId()
     {
         return $this->id;
     }
-
     public function setId($id)
     {
         $this->id = $id;
@@ -49,79 +49,81 @@ class Loan
         return $this;
     }
 
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getClient_id()
+    public function getClientId()
     {
         return $this->client_id;
     }
-
-    public function setClient_id($client_id)
+    public function setClientId($client_id)
     {
         $this->client_id = $client_id;
 
         return $this;
     }
 
-    public function getBook_id()
+    public function getLoanId()
     {
-        return $this->book_id;
+        return $this->Loan_id;
     }
-
-    public function setBook_id($book_id)
+    public function setLoanId($Loan_id)
     {
-        $this->book_id = $book_id;
+        $this->Loan_id = $Loan_id;
 
         return $this;
     }
 
-    public function getStart_date()
+    public function getStartDate()
     {
         return $this->start_date;
     }
-
-
-    public function setStart_date($start_date)
+    public function setStartDate($start_date)
     {
         $this->start_date = $start_date;
 
         return $this;
     }
 
-
-    public function getEnd_date()
+    public function getEndDate()
     {
         return $this->end_date;
     }
-
-    public function setEnd_date($end_date)
+    public function setEndDate($end_date)
     {
         $this->end_date = $end_date;
 
         return $this;
     }
 
-
     public function getReturned()
     {
         return $this->returned;
     }
-
-
     public function setReturned($returned)
     {
         $this->returned = $returned;
 
         return $this;
     }
+
+    // Methods
+    public function getAllLoans()
+    {
+        // Code pour récupérer tous les livres
+    }
+    public function getOneLoan()
+    {
+        // Code pour récupérer tous les livres
+    }
+    public function addLoan()
+    {
+        // Code pour récupérer tous les livres
+    }
+    public function editLoan()
+    {
+        // Code pour récupérer tous les livres
+    }
+    public function deleteLoan()
+    {
+        // Code pour récupérer tous les livres
+    }
 }
+//Pas de code ici
