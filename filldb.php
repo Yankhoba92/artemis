@@ -1,16 +1,16 @@
 <?php
 require_once 'vendor/autoload.php';
+
 include __DIR__ . '/templates/header.php';
 
+$faker = Faker\Factory::create('fr_FR');
 
-$faker = Faker\Factory::create('fr-FR');
+if(true) {
 
-
-if(true){
 // Connection à la base de données
 $pdo = new PDO(
     'mysql:host=localhost;dbname=artemis;charset=utf8mb4', 
-    'root', 
+    'mba-m2', 
     '');
 
 // Suppression de toutes les tables
@@ -32,7 +32,7 @@ $pdo->query("CREATE TABLE Author (
 // Insertion d'exemples d'auteurs
 for ($i = 1; $i <= 180; $i++) {
     $authorData = [
-        'name' => $faker->text(),
+        'name' => $faker->name(),
         'bio' => $faker->text(),
     ];
 
@@ -49,7 +49,7 @@ $pdo->query("CREATE TABLE Publisher (
 // Insertion d'exemples d'éditeurs
 for ($i = 1; $i <= 50; $i++) {
     $publisherData = [
-        'name'  => $faker->company(),
+        'name' => $faker->company(),
     ];
 
     $pdo->prepare("INSERT INTO Publisher (name) VALUES (:name)")
@@ -71,8 +71,8 @@ $pdo->query("CREATE TABLE Book (
 // Insertion d'exemples de livres
 for ($i = 1; $i <= 200; $i++) {
     $bookData = [
-        'title'  => $faker->sentence(2),
-        'description'=> $faker->text(),
+        'title' => $faker->sentence(2),
+        'description' => $faker->text(),
         'ISBN' => $faker->isbn13(),
         'author_id' => rand(1, 180),
         'publisher_id' => rand(1, 50),
@@ -93,7 +93,7 @@ $pdo->query("CREATE TABLE Client (
 // Insertion d'exemples de clients
 for ($i = 1; $i <= 50; $i++) {
     $clientData = [
-        'name'  => $faker->name(),
+        'name' => $faker->name(),
         'email' => $faker->email(),
         'deposit' => rand(true, false)
     ];
@@ -133,9 +133,9 @@ for ($i = 1; $i <= 50; $i++) {
     $pdo->prepare("INSERT INTO Loan (client_id, book_id, start_date, end_date, returned) VALUES (:client_id, :book_id, :start_date, :end_date, :returned)")
         ->execute($loanData);
 }
+
 echo "Données fictives insérées avec succès.";
+
 }
-
-
 
 include __DIR__ . '/templates/footer.php';

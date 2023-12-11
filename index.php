@@ -4,10 +4,10 @@
 
 // use Artemis\Book;
 // // $publisher = Database::getOne('Publisher', 2 );
-// $books = Book::getOneBook();
+// var_dump (Book::getOneBook(127));
 // print_r($books);
-// // echo '<br>';
-// // print_r($books);
+// echo '<br>';
+// print_r($books);
 // die();
 
 include __DIR__ . '/templates/header.php';

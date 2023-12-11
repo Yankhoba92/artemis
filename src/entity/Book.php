@@ -108,10 +108,12 @@ class Book
     static public function getAllBooks()
     {
     }
-    static public function getOneBook()
+    static public function getOneBook(int $id)
     {
         $query ="SELECT
                     Book.title AS BookTitle,
+                    Book.description AS BookDescription,
+                    Book.isbn AS BookIsbn,
                     Author.name AS AuthorName,
                     Publisher.name AS PublisherName
                 FROM Book JOIN Author ON Book.author_id = Author.id
