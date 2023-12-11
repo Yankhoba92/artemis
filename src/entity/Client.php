@@ -6,7 +6,10 @@
  */
 
 namespace Artemis;
+require __DIR__.'/../controller/Database.php';
 
+use PDO;
+use Artemis\Database;
 class Client
 {
     // Properties
@@ -76,14 +79,28 @@ class Client
         return $this;
     }
 
-    // Methods
-    public function getAllClients()
+   // Methods
+    /**
+     * Méthode permettant de récuperer tous les livres
+     * Ne prend aucun paramétre
+     * Retourne un tableau associatif
+     */
+    static public function getAllClients()
     {
         // Code pour récupérer tous les livres
     }
     public function getOneClient()
     {
-        // Code pour récupérer tous les livres
+        $query ="SELECT * FROM Client WHERE id = 1;";   
+        
+            //SELECT * FROM Client WHERE id = 1;
+          $pdo = Database::getPDO();// Connexion
+          $query = "SELECT * FROM $entity WHERE id = $id;";
+              $stmt = $pdo->prepare($query); // Requete SQL
+              $stmt->execute();// Execution de la requete
+              $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+              return $data;
+      
     }
     public function addClient()
     {

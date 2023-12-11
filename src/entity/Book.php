@@ -10,7 +10,6 @@ require __DIR__.'/../controller/Database.php';
 
 use PDO;
 use Artemis\Database;
-
 class Book
 {
     // Properties

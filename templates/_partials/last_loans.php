@@ -1,3 +1,12 @@
+<?php
+// require __DIR__ ."/../../src/controller/Database.php";
+// use Artemis\Database;
+// $books = Database::getAll("Book");
+// $last = array_reverse($books);
+
+// var_dump(array_slice($last ,0,  3));
+?>
+
 <div class="w-full lg:w-1/3 p-4">
     <div class="pt-3 px-6 mb-6 bg-white rounded border-t-4 border-indigo-500 shadow">
         <div class="flex justify-between items-center pb-3">

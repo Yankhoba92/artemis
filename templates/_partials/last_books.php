@@ -1,8 +1,17 @@
+<?php
+require __DIR__ ."/../../src/controller/Database.php";
+use Artemis\Database;
+$books = Database::getAll("Book");
+$last = array_reverse($books);
+
+// var_dump(array_slice($last ,0,  3));
+?>
+
 <div class="w-full lg:w-1/3 p-4">
     <div class="pt-3 px-6 mb-6 bg-white rounded border-t-4 border-indigo-500 shadow">
         <div class="flex justify-between items-center pb-3">
             <h3 class="font-medium">Derniers ouvrages</h3>
-            <span class="flex justify-center items-center w-6 h-6 rounded bg-indigo-50 text-indigo-500 text-xs">203</span>
+            <span class="flex justify-center items-center w-6 h-6 rounded bg-indigo-50 text-indigo-500 text-xs"><?= count($last)?> </span>
         </div>
     </div>
     <div>
@@ -14,32 +23,22 @@
             </span>
             <span>Ajouter un livre</span>
         </a>
-    </div>
-    <div class="p-6 mb-4 bg-white rounded shadow">
+    </div>    
+    <?php
+    for ($i=0; $i < 3 ; $i++) { 
+        echo '
+        <div class="p-6 mb-4 bg-white rounded shadow">
         <div class="flex justify-between items-center mb-6">
-            <span class="inline-block py-1 px-2 bg-blue-50 text-xs text-blue-500 rounded-full">Auteur(e)</span>
+            <span class="inline-block py-1 px-2 bg-blue-50 text-xs text-blue-500 rounded-full">'.$last[$i]['author_id'].'</span>
         </div>
         <div class="mb-4">
-            <h3 class="mb-2 font-medium">Livre 1</h3>
-            <p class="text-sm text-gray-500">Decription du livre</p>
+            <h3 class="mb-2 font-medium">'.$last[$i]['title'].'</h3>
+            <p class="text-sm text-gray-500">'.$last[$i]['description'].'</p>
         </div>
     </div>
-    <div class="p-6 mb-4 bg-white rounded shadow">
-        <div class="flex justify-between items-center mb-6">
-            <span class="inline-block py-1 px-2 bg-blue-50 text-xs text-blue-500 rounded-full">Auteur(e)</span>
-        </div>
-        <div class="mb-4">
-            <h3 class="mb-2 font-medium">Livre 2</h3>
-            <p class="text-sm text-gray-500">Decription du livre</p>
-        </div>
-    </div>
-    <div class="p-6 mb-4 bg-white rounded shadow">
-        <div class="flex justify-between items-center mb-6">
-            <span class="inline-block py-1 px-2 bg-blue-50 text-xs text-blue-500 rounded-full">Auteur(e)</span>
-        </div>
-        <div class="mb-4">
-            <h3 class="mb-2 font-medium">Livre 3</h3>
-            <p class="text-sm text-gray-500">Decription du livre</p>
-        </div>
-    </div>
+        ';
+    };
+
+    ?>
+    
 </div>
