@@ -6,10 +6,12 @@
  */
 
 namespace Artemis;
-require __DIR__.'/../controller/Database.php';
+
+require __DIR__ . '/../controller/Database.php';
 
 use PDO;
 use Artemis\Database;
+
 class Book
 {
     // Properties
@@ -21,9 +23,14 @@ class Book
     public int $publisher_id;
 
     // Constructor
-    public function __construct(int $id, string $title, string $description, string $ISBN, int $author_id, int $publisher_id
-        )
-    {
+    public function __construct(
+        int $id,
+        string $title,
+        string $description,
+        string $ISBN,
+        int $author_id,
+        int $publisher_id
+    ) {
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
@@ -40,7 +47,6 @@ class Book
     public function setId($id)
     {
         $this->id = $id;
-
         return $this;
     }
 
@@ -51,9 +57,8 @@ class Book
     public function setTitle($title)
     {
         $this->title = $title;
-
         return $this;
-    } 
+    }
 
     public function getDescription()
     {
@@ -62,9 +67,8 @@ class Book
     public function setDescription($description)
     {
         $this->description = $description;
-
         return $this;
-    } 
+    }
 
     public function getISBN()
     {
@@ -73,9 +77,8 @@ class Book
     public function setISBN($ISBN)
     {
         $this->ISBN = $ISBN;
-
         return $this;
-    } 
+    }
 
     public function getAuthor_id()
     {
@@ -84,7 +87,6 @@ class Book
     public function setAuthor_id($author_id)
     {
         $this->author_id = $author_id;
-
         return $this;
     }
 
@@ -95,22 +97,14 @@ class Book
     public function setPublisher_id($publisher_id)
     {
         $this->publisher_id = $publisher_id;
-
         return $this;
     }
 
-    // Methods
-    /**
-     * Méthode permettant de récuperer tous les livres
-     * Ne prend aucun paramétre
-     * Retourne un tableau associatif
-     */
-    static public function getAllBooks()
-    {
-    }
+
     static public function getOneBook(int $id)
     {
-        $query ="SELECT
+        $pdo = Database::getPDO();
+        $query = "SELECT
                     Book.title AS BookTitle,
                     Book.description AS BookDescription,
                     Book.isbn AS BookIsbn,
@@ -118,30 +112,24 @@ class Book
                     Publisher.name AS PublisherName
                 FROM Book JOIN Author ON Book.author_id = Author.id
                 JOIN Publisher ON Book.publisher_id = Publisher.id
-                WHERE Book.id = 1;
-        ";   
-        $pdo = Database::getPDO() ;
-        $stmt = $pdo->prepare($query); // Requete SQL
-        $stmt->execute();// Execution de la requete
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $data;
+                WHERE Book.id = $id;
+        ";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        $book = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $book;
     }
-    public function addBook()
+    static public function addBook()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function editBook()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function deleteBook()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
-
-
-
-
-
-
 }
+// Code interdit après l'accolade
