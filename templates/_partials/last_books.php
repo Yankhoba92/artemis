@@ -27,6 +27,7 @@ $last = array_reverse($books);
     <?php
     for ($i=0; $i < 3 ; $i++) { 
         echo '
+        <a href="book.php?id='. $last[$i]['id'].'">
         <div class="p-6 mb-4 bg-white rounded shadow">
         <div class="flex justify-between items-center mb-6">
             <span class="inline-block py-1 px-2 bg-blue-50 text-xs text-blue-500 rounded-full">'.$last[$i]['author_id'].'</span>
@@ -36,6 +37,7 @@ $last = array_reverse($books);
             <p class="text-sm text-gray-500">'.$last[$i]['description'].'</p>
         </div>
     </div>
+    </a>
         ';
     };
 
