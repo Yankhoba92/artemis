@@ -1,7 +1,6 @@
-# src
+# Classes
 
-Book
-
+#Book
 - id (int)
 - title (string)
 - description (string)
@@ -9,29 +8,26 @@ Book
 - author_id (int)
 - publisher_id (int)
 
-Author
-
+#Author
 - id (int)
 - name (string)
 - bio (text)
 
-Publisher
-
+#Publisher
 - id (int)
 - name (string)
 
-Client
-
+#Client
 - id (int)
 - name (string)
 - email (string)
 - deposit (int)
 
-Loan
-
+#Loan
 - id (int)
 - client_id (int)
 - book_id (int)
 - start_date (date)
 - end_date (date)
 - returned (boolean)
+

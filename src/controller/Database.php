@@ -13,7 +13,7 @@ class Database
 {
     private $host = 'localhost';
     private $dbname = 'artemis';
-    private $username = 'root';
+    private $username = 'mba-m2';
     private $password = '';
     private $charset = 'utf8mb4';
 
@@ -22,7 +22,7 @@ class Database
     {
         $pdo = new PDO(
             'mysql:host=localhost;dbname=artemis;charset=utf8mb4', 
-            'root',
+            'mba-m2',
             ''
         );
         return $pdo;
@@ -61,7 +61,31 @@ class Database
         return $data;
     }
 
+    /**
+     * Méthode global de suppression d'un seul
+     * élément d'une entité dans la BDD
+     * @param string $entity
+     * @param int $id
+     * @param string $relation
+     * @return array
+     */
+    static public function delete(string $entity, int $id, $relation = null): void
+    {
+        $pdo = Database::getPDO();
 
+        if ($relation) {
+            $capitalized = ucfirst($relation); // ucfirst = Upper Case First
+            $foreign = strtolower($entity) . '_id'; // strtolower = Lower Case
+            $query = "DELETE FROM $capitalized WHERE $foreign = $id;";
+            $stmt = $pdo->prepare($query); 
+            $stmt->execute(); 
+        }
+
+        $capitalized = ucfirst($entity);
+        $query = "DELETE FROM $capitalized WHERE id = $id;";
+        $stmt = $pdo->prepare($query); 
+        $stmt->execute(); 
+    }
 
 
 }

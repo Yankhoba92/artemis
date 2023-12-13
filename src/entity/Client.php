@@ -6,10 +6,7 @@
  */
 
 namespace Artemis;
-require __DIR__.'/../controller/Database.php';
 
-use PDO;
-use Artemis\Database;
 class Client
 {
     // Properties
@@ -20,12 +17,11 @@ class Client
 
     // Constructor
     public function __construct(
-        int $id, 
+        int $id,
         string $name,
         string $email,
         string $deposit
-        )
-    {
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
@@ -40,7 +36,6 @@ class Client
     public function setId($id)
     {
         $this->id = $id;
-
         return $this;
     }
 
@@ -52,7 +47,6 @@ class Client
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -64,7 +58,6 @@ class Client
     public function setEmail($email)
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -75,44 +68,29 @@ class Client
     public function setDeposit($deposit)
     {
         $this->deposit = $deposit;
-
         return $this;
     }
 
-   // Methods
-    /**
-     * Méthode permettant de récuperer tous les livres
-     * Ne prend aucun paramétre
-     * Retourne un tableau associatif
-     */
-    static public function getAllClients()
+    // Methods
+    public function getAllClients()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function getOneClient()
     {
-        $query ="SELECT * FROM Client WHERE id = 1;";   
-        
-            //SELECT * FROM Client WHERE id = 1;
-          $pdo = Database::getPDO();// Connexion
-          $query = "SELECT * FROM $entity WHERE id = $id;";
-              $stmt = $pdo->prepare($query); // Requete SQL
-              $stmt->execute();// Execution de la requete
-              $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-              return $data;
-      
+        // Code
     }
     public function addClient()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function editClient()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function deleteClient()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
 }
 //Pas de code ici

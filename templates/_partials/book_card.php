@@ -1,7 +1,7 @@
 <div class="w-full lg:w-1/3 p-4">
     <div class="p-4 bg-white rounded">
         <div class="relative h-40 w-full mb-4">
-            <img class="w-full h-full object-cover rounded" src="./artemis-assets/images/artemis-book-defaut.png" alt="">
+            <img class="w-full h-full object-cover rounded" src="/artemis-assets/images/artemis-book-defaut.png" alt="">
             <!-- <span class="absolute top-0 right-0 py-1 px-2 mt-2 mr-2 bg-indigo-500 rounded text-xs text-white">14 Tasks</span> -->
         </div>
         <div class="flex mb-6 justify-between items-center">
@@ -23,7 +23,7 @@
         <div class="flex items-ceenter justify-between border-t border-gray-50 pt-4">
             <a 
                 class="py-2 px-3 bg-indigo-500 hover:bg-indigo-600 rounded text-xs text-white transition duration-200" 
-                href="book.php?id=<?= $book['BookId'] ?? 'Undefined' ?>">Voir le livre</a>
+                href="book.php?id=<?= $book['BookId'] ?? 'Undefined' ?>">See Details</a>
         </div>
     </div>
 </div>
