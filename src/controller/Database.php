@@ -13,7 +13,7 @@ class Database
 {
     private $host = 'localhost';
     private $dbname = 'artemis';
-    private $username = 'mba-m2';
+    private $username = 'root';
     private $password = '';
     private $charset = 'utf8mb4';
 
@@ -22,7 +22,7 @@ class Database
     {
         $pdo = new PDO(
             'mysql:host=localhost;dbname=artemis;charset=utf8mb4', 
-            'mba-m2',
+            'root',
             ''
         );
         return $pdo;

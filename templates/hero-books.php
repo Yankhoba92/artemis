@@ -13,7 +13,7 @@
                     </p>
                 </div>
                 <div class="relative w-full md:w-1/2 px-12">
-                    <img class="lg:absolute top-0 lg:mr-12 right-0 lg:-mt-24 lg:h-80 object-cover" src="artemis-assets/images/chart-folder.png" alt="">
+                    <img class="lg:absolute top-0 lg:mr-12 right-0 lg:-mt-24 lg:h-80 object-cover" src="../artemis-assets/images/chart-folder.png" alt="">
                 </div>
             </div>
         </div>
