@@ -1,6 +1,15 @@
 <?php 
+require_once 'vendor/autoload.php';
 
-$pageTitle = 'Tableau de Bord';
+use Symfony\Component\Dotenv\Dotenv;
+
+$dotenv = new Dotenv();
+$dotenv->load(__DIR__.'/.env.local', __DIR__.'/.env');
+
+
+
+
+$pageTitle = 'Tableau de bord';
 
 include __DIR__ . '/templates/header.php';
 
