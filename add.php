@@ -17,25 +17,13 @@ $dotenv->load(__DIR__ . '/.env', __DIR__ . '/.env.local');
 $authors = Database::getAll('Author');
 $publishers = Database::getAll('Publisher');
 
-$title = 'Martin à la plage';
-$author = 'Pauline Monnier';
-$publisher = 'Hatier';
+$title = '';
 $description = '';
+$author_id = '';
+$publisher_id = '';
 
-if (isset($_POST['submit'])) {
-    if (isset($_POST['api'])) {
-        echo 'La demande est envoyée à l\'API.';
-        $client = OpenAI::client($_ENV['OPENAI_SK']);
-
-        $result = $client->chat()->create([
-            'model' => 'gpt-3.5-turbo',
-            'messages' => [
-                ['role' => 'assistant', 'content' => 'Tu es un assistant pour une bibliothèque, ton rôle consiste à rédiger des textes de description pour des livres à partir du titre, de l\'auteur et de la maison d\'édition. Rédige la description pour ce livre : '. $title . ', écrit par '. $author .'  et publié par '. $publisher . '.'],
-            ],
-        ]);
-
-        $description = $result->choices[0]->message->content;
-    } else {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['save'])) {
         Book::addBook(
             $_POST['title'],
             $_POST['description'],
@@ -43,6 +31,36 @@ if (isset($_POST['submit'])) {
             $_POST['author'],
             $_POST['publisher']
         );
+
+        header('Location: index.php');
+
+    } elseif (isset($_POST['api'])) {
+        $title = $_POST['title'];
+        $author_id = $_POST['author'];
+        $publisher_id = $_POST['publisher'];
+        foreach ($authors as $author) {
+            if ($author['id'] == $_POST['author']) {
+                $author = $author['name'];
+                break;
+            }
+        }
+        foreach ($publishers as $publisher) {
+            if ($publisher['id'] == $_POST['publisher']) {
+                $publisher = $publisher['name'];
+                break;
+            }
+        }
+
+        $client = OpenAI::client($_ENV['OPENAI_SK']);
+
+        $result = $client->chat()->create([
+            'model' => 'gpt-3.5-turbo',
+            'messages' => [
+                ['role' => 'assistant', 'content' => 'Tu es un assistant pour une bibliothèque, ton rôle consiste à rédiger des textes de description pour des livres à partir du titre, de l\'auteur et de la maison d\'édition. Rédige la description pour ce livre : ' . $title . ', écrit par ' . $author . ' à citer et publié par ' . $publisher . 'à citer.'],
+            ],
+        ]);
+
+        $description = $result->choices[0]->message->content;
     }
 }
 
@@ -55,7 +73,7 @@ include __DIR__ . '/templates/hero.php';
 ?>
 
 <div class="container px-4 mb-6 mx-auto">
-    <form>
+    <form action="" method="POST">
         <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-12">
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Formulaire d'ajout d'un nouveau livre</h2>
@@ -64,7 +82,7 @@ include __DIR__ . '/templates/hero.php';
                     <div class="sm:col-span-4">
                         <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Titre du livre</label>
                         <div class="mt-2">
-                            <input type="text" name="title" id="title" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <input type="text" name="title" id="title" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="<?= !empty($title) ? $title : '' ?>" required/>
                         </div>
                     </div>
 
@@ -76,10 +94,7 @@ include __DIR__ . '/templates/hero.php';
                     </div>
 
                     <div class="sm:col-span-4">
-                        <div>
-                            <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
-                            <button type="button" onclick="showModal('ai')" class="rounded-md bg-transparent-600 px-3 py-2 text-xs font-semibold text-black hover:text-white border hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Rédaction par IA 🦾</button>
-                        </div>
+                        <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
                         <div class="mt-2">
                             <textarea id="description" name="description" type="text" rows="5" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"><?= !empty($description) ? $description : '' ?></textarea>
                         </div>
@@ -89,9 +104,20 @@ include __DIR__ . '/templates/hero.php';
                         <label for="author" class="block text-sm font-medium leading-6 text-gray-900">Auteur(e)</label>
                         <div class="mt-2">
                             <select type="text" name="author" id="author" autocomplete="address-level2" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                <?php foreach ($authors as $author) : ?>
-                                    <option value="<?= $author['id'] ?>" data-author="<?= $author['name'] ?>"><?= $author['name'] ?></option>
-                                <?php endforeach; ?>
+                                <?php
+                                if (!empty($author_id)) {
+                                    foreach ($authors as $author) {
+                                        if ($author['id'] == $author_id) {
+                                            echo '<option value="' . $author['id'] . '">' . $author['name'] . '</option>';
+                                            break;
+                                        }
+                                    }
+                                } else {
+                                    foreach ($authors as $author) {
+                                        echo '<option value="' . $author['id'] . '">' . $author['name'] . '</option>';
+                                    }
+                                }
+                                ?>
                             </select>
                         </div>
                     </div>
@@ -100,9 +126,20 @@ include __DIR__ . '/templates/hero.php';
                         <label for="publisher" class="block text-sm font-medium leading-6 text-gray-900">Maison d'édition</label>
                         <div class="mt-2">
                             <select type="text" name="publisher" id="publisher" autocomplete="address-level1" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                <?php foreach ($publishers as $publishers) : ?>
-                                    <option value="<?= $publishers['id'] ?>" data-publisher="<?= $publishers['name'] ?>"><?= $publishers['name'] ?></option>
-                                <?php endforeach; ?>
+                            <?php
+                                if (!empty($publisher_id)) {
+                                    foreach ($publishers as $publisher) {
+                                        if ($publisher['id'] == $publisher_id) {
+                                            echo '<option value="' . $publisher['id'] . '">' . $publisher['name'] . '</option>';
+                                            break;
+                                        }
+                                    }
+                                } else {
+                                    foreach ($publishers as $publisher) {
+                                        echo '<option value="' . $publisher['id'] . '">' . $publisher['name'] . '</option>';
+                                    }
+                                }
+                                ?>
                             </select>
                         </div>
                     </div>
@@ -111,19 +148,28 @@ include __DIR__ . '/templates/hero.php';
         </div>
 
         <div class="mt-6 flex items-center justify-start gap-x-6">
-            <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Enregistrer</button>
+            <input type="submit" name="api" class="rounded-md bg-transparent-600 px-3 py-2 text-xs font-semibold text-black hover:text-white border hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" value="Rédaction par IA 🦾" />
+            <input type="submit" name="save" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" value="Enregistrer" />
         </div>
     </form>
 </div>
 
-<script>
+<!-- <script>
     // Récupérer les éléments du DOM : Titre en live, auteur, maison d'édition
-    let author = document.querySelector('#author').getAttribute('data-author')
+    let title = document.querySelector('#title')
+    title.addEventListener('keyup', function() {
+        console.log(title.value)
+    })
+    let author = document.querySelector('#author')
+    let authors = document.querySelectorAll('#author option')
     let publisher = document.querySelector('#publisher')
-</script>
+    author.addEventListener("change", () => {
+        console.log(event)
+    })
+</script> -->
 
 <?php
 
-include __DIR__ . '/templates/_partials/modal_ai.php';
+// include __DIR__ . '/templates/_partials/modal_ai.php';
 
 include __DIR__ . '/templates/footer.php';
